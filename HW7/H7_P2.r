@@ -9,7 +9,7 @@ bsp <- function(S, T, t, K, r, s, q) {
   d1 <- (log(S/K)+(r-q+0.5*s^2)*(T-t)) / (s*sqrt(T-t)) 
   # equation for d2
   d2 <- d1 - s*sqrt(T-t) 
-  K*exp(-r*(T-t))*pnorm(-d2) + S*exp(-q*(T-t))*pnorm(-d1) 
+  K*exp(-r*(T-t))*pnorm(-d2) - S*exp(-q*(T-t))*pnorm(-d1) 
   #put price equation
 
   # here pnorm is the cumulative distribution function (CDF)
@@ -39,21 +39,19 @@ dbsp <- function(S, T, t, K, r, s, q) {
   d1 <- (log(S/K)+(r-q+0.5*s^2)*(T-t)) / (s*sqrt(T-t))
   
   #defining f'()
-  S*sqrt(T-t)*exp(-q*(T-t)) * 1/sqrt(2*pi)*exp(-d1^2*0.5)
+  # S*sqrt(T-t)*exp(-q*(T-t)) * exp(-(d1^2)/2)*1/sqrt(2*pi)
+  S*sqrt(T - t)*exp(-q*(T - t))*1/sqrt(2*pi)*exp(-d1^2/2)
   # We use Phi(x) as defined in the original Black-Scholes slide
 }
 
-# create our "guessed" sigmas for Newton's method
-sigmas <- seq(0.05, 0.5, by = 0.01)
-
 # define helper f(sigma)= bsp(sigma) - 8
 fsig <- function(sigma) {
-  bsp(50, 0.5, 0.0, 45, 0.06, sigmas, 0.02) - 8
+  bsp(50, 0.5, 0.0, 45, 0.06, sigma, 0.02) - 8
 }
 
 #define helper f'(sigma)
 dfsig <- function(sigma) {
-  dbsc(50, 0.5, 0.0, 45, 0.06, sigma, 0.02)
+  dbsp(50, 0.5, 0.0, 45, 0.06, sigma, 0.02)
 }
 
 # Implement Newton's method
@@ -61,13 +59,14 @@ Newtons <- function() {
   u <- 500
   x <- 1
   k <- 0
+  tol <- `^`(10, -5)
   
-  while ((abs(u) / abs(x)) > 1e-5) {
-    u <- fsig(x) / dfsig(x)
+  while ((abs(u)/abs(x)) > tol) {
+    u <- fsig(x)/dfsig(x)
     x <- x-u
     k <- k+1 #monitors number of steps
   }
-  
+
   x
 }
 
