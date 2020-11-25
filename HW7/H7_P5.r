@@ -27,7 +27,9 @@ x
 k
 
 # 2(c)
-# One change that we could make to 
+# One change that we could make to the Newton's method implementation
+# to try to make the estimate more accurate is to decrease the tolerance,
+# which we will try to implement as 1e-10 rather than 1e-4.
 
 u <- 500 
 x <- 1

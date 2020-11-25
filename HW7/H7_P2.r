@@ -5,12 +5,12 @@
 
 # 2(a)
 bsp <- function(S, T, t, K, r, s, q) {
-  # equation for d1
-  d1 <- (log(S/K)+(r-q+0.5*s^2)*(T-t)) / (s*sqrt(T-t)) 
-  # equation for d2
-  d2 <- d1 - s*sqrt(T-t) 
-  K*exp(-r*(T-t))*pnorm(-d2) - S*exp(-q*(T-t))*pnorm(-d1) 
+  # equation for d_1
+  d1<-(log(S/K)+(r-q+0.5*s^2)*(T-t))/(s*sqrt(T-t)) 
+  # equation for d_2
+  d2<-d1-s*sqrt(T-t)
   #put price equation
+  K*exp(-r*(T-t))*pnorm(-d2)-S*exp(-q*(T-t))*pnorm(-d1) 
 
   # here pnorm is the cumulative distribution function (CDF)
   # of the standard normal distribution Phi(x)
@@ -39,8 +39,8 @@ dbsp <- function(S, T, t, K, r, s, q) {
   d1 <- (log(S/K)+(r-q+0.5*s^2)*(T-t)) / (s*sqrt(T-t))
   
   #defining f'()
-  # S*sqrt(T-t)*exp(-q*(T-t)) * exp(-(d1^2)/2)*1/sqrt(2*pi)
-  S*sqrt(T - t)*exp(-q*(T - t))*1/sqrt(2*pi)*exp(-d1^2/2)
+  S*sqrt(T-t)*exp(-q*(T-t)) * exp(-(d1^2)/2)*1/sqrt(2*pi)
+  # S*sqrt(T - t)*exp(-q*(T - t))*pnorm(d1)
   # We use Phi(x) as defined in the original Black-Scholes slide
 }
 
@@ -81,7 +81,7 @@ right <- 0.5
 BiVolatility <- Bisection(fsig, left, right);
 
 # Calculate final Black-Scholes Price
-BiBSP <- bsp(50, 0.5, 0.0, 45, 0.06, BiVolatility, 0.02) - 8
+BiBSP <- bsp(50, 0.5, 0.0, 45, 0.06, BiVolatility, 0.02)
 BiBSP
 
 # 2(e)
@@ -91,5 +91,5 @@ BiBSP
 NewVolatility <- Newtons()
 
 # Calculate final Black-Scholes Price
-NewBSP <- bsp(50, 0.5, 0.0, 45, 0.06, NewVolatility, 0.02) - 8
+NewBSP <- bsp(50, 0.5, 0.0, 45, 0.06, NewVolatility, 0.02)
 NewBSP
