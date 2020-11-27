@@ -23,11 +23,19 @@ g <- function(x) {
   (x^3) - (5*(x^2)) - (7*x)
 }
 
-y <- Bisection(g, 6, 6.25)
+# Set bound values and check proper bounds for Bisection method
+left <- -5
+right <- -0.05
+g(left)  # This should be negative
+g(right)  # This should be positive
+
+y <- Bisection(g, left, right)
 y  # final value for c
 g(y)  # final value for g(c)
 
+# Looked at a graph and picked two bound values where
+# one was negative, and the other was positive.
 # The initial interval choice was decided by seeing that the upper
 # values for 6.5 and 6.25 were both greater than 0, so we must have
-# to start with an upper limit that is at most these values.
+# to start with an upper limit that is at most these values. 
 # Therefore, we could have chosen 6.25 or 6.5 as our starting upper limit.

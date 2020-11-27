@@ -3,7 +3,7 @@
 # Adekoya
 # Problem 5
 
-# 2(b)
+# 5(b)
 
 f <- function(x) {
   -1*(x^5) - cos(x)
@@ -15,34 +15,34 @@ df <- function(x) {
 
 u <- 500 
 x <- 1
-k <- 0
+steps <- 0
 
 while (abs(u)/abs(x) > 1e-4) {
   u <- f(x) / df(x)
   x <- x - u
-  k <- k + 1
+  steps <- steps + 1
 }
 
 x
-k
+steps
 
-# 2(c)
+# 5(c)
 # One change that we could make to the Newton's method implementation
 # to try to make the estimate more accurate is to decrease the tolerance,
 # which we will try to implement as 1e-10 rather than 1e-4.
 
-u <- 500 
-x <- 1
-k <- 0
+u_smallTol <- 500 
+x_smallTol <- 1
+steps_smallTol <- 0
 
-while (abs(u)/abs(x) > 1e-10) {
-  u <- f(x) / df(x)
-  x <- x - u
-  k <- k + 1
+while (abs(u_smallTol)/abs(x_smallTol) > 1e-10) {
+  u_smallTol <- f(x_smallTol) / df(x_smallTol)
+  x_smallTol <- x_smallTol - u_smallTol
+  steps_smallTol <- steps_smallTol + 1
 }
 
-x
-k
+x_smallTol
+steps_smallTol
 
 # Interestingly enough, we don't find a better approximation,
 # even though we increased the number of steps we took,

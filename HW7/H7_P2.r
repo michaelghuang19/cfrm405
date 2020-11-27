@@ -6,11 +6,11 @@
 # 2(a)
 bsp <- function(S, T, t, K, r, s, q) {
   # equation for d_1
-  d1<-(log(S/K)+(r-q+0.5*s^2)*(T-t))/(s*sqrt(T-t)) 
+  d1<-(log(S/K)+(r-q+0.5*s^2)*(T-t)) / (s*sqrt(T-t)) 
   # equation for d_2
   d2<-d1-s*sqrt(T-t)
   #put price equation
-  K*exp(-r*(T-t))*pnorm(-d2)-S*exp(-q*(T-t))*pnorm(-d1) 
+  K*exp(-r*(T-t))*pnorm(-d2) - S*exp(-q*(T-t))*pnorm(-d1)
 
   # here pnorm is the cumulative distribution function (CDF)
   # of the standard normal distribution Phi(x)
@@ -40,7 +40,6 @@ dbsp <- function(S, T, t, K, r, s, q) {
   
   #defining f'()
   S*sqrt(T-t)*exp(-q*(T-t)) * exp(-(d1^2)/2)*1/sqrt(2*pi)
-  # S*sqrt(T - t)*exp(-q*(T - t))*pnorm(d1)
   # We use Phi(x) as defined in the original Black-Scholes slide
 }
 
@@ -58,13 +57,11 @@ dfsig <- function(sigma) {
 Newtons <- function() {
   u <- 500
   x <- 1
-  k <- 0
   tol <- `^`(10, -5)
   
   while ((abs(u)/abs(x)) > tol) {
     u <- fsig(x)/dfsig(x)
     x <- x-u
-    k <- k+1 #monitors number of steps
   }
 
   x
@@ -73,9 +70,13 @@ Newtons <- function() {
 # 2(d)
 # Calculate Black-Scholes price using volatility from Bisection method
 
+
 # create our lower and upper limits for Bisection method
-left <- 0.05
-right <- 0.5
+left <- -1
+right <- 1
+# Checking proper bounds for Bisection method
+bsp(50, 0.5, 0.0, 45, 0.06, left, 0.02)  # This should be negative
+bsp(50, 0.5, 0.0, 45, 0.06, right, 0.02)  # This should be positive
 
 # Do Bisection method to find volatility
 BiVolatility <- Bisection(fsig, left, right);
@@ -83,6 +84,8 @@ BiVolatility <- Bisection(fsig, left, right);
 # Calculate final Black-Scholes Price
 BiBSP <- bsp(50, 0.5, 0.0, 45, 0.06, BiVolatility, 0.02)
 BiBSP
+
+# This is pretty close to 8, so it seems to be a pretty good approximate.
 
 # 2(e)
 # Calculate Black-Scholes price using volatility from Newton's method
@@ -93,3 +96,6 @@ NewVolatility <- Newtons()
 # Calculate final Black-Scholes Price
 NewBSP <- bsp(50, 0.5, 0.0, 45, 0.06, NewVolatility, 0.02)
 NewBSP
+
+# This is exactly 8, so it seems to be a good approximate.
+
