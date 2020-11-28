@@ -51,4 +51,4 @@ steps_smallTol
 # 2(d)
 # We can't apply Newton's method with x_0 = 0 since x_0 is guaranteed to be 0,
 # so Newton's method wouldn't give us a valid value since we can't divide by
-# x in the while check.
+# x in the while check, since we can't divide by 0.

@@ -24,8 +24,8 @@ g <- function(x) {
 }
 
 # Set bound values and check proper bounds for Bisection method
-left <- -5
-right <- -0.05
+left <- 6
+right <- 6.25
 g(left)  # This should be negative
 g(right)  # This should be positive
 
@@ -33,9 +33,8 @@ y <- Bisection(g, left, right)
 y  # final value for c
 g(y)  # final value for g(c)
 
-# Looked at a graph and picked two bound values where
-# one was negative, and the other was positive.
-# The initial interval choice was decided by seeing that the upper
-# values for 6.5 and 6.25 were both greater than 0, so we must have
-# to start with an upper limit that is at most these values. 
-# Therefore, we could have chosen 6.25 or 6.5 as our starting upper limit.
+# The initial interval choice was decided by looking at a graph
+# of the function and picking two bound values where
+# one value was negative, and the other was positive. 
+# Since g(6) is negative and g(6.25) is positive, I decided
+# to use those values as my two bounds.

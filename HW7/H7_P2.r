@@ -71,7 +71,7 @@ Newtons <- function() {
 # Calculate Black-Scholes price using volatility from Bisection method
 
 
-# create our lower and upper limits for Bisection method
+# create our lower and upper bounds for Bisection method
 left <- -1
 right <- 1
 # Checking proper bounds for Bisection method
