@@ -1,12 +1,12 @@
 # Michael Huang
 # Homework 7
 # Adekoya
-# Problem 2
+# Problem 3
 
-# This is an optimization problem to maximize the expected returns of
+# This is an optimization problem to minimize the variance of
 # a portfolio subject to constraint on risk
 
-# 2(b)
+# 3(b)
 
 # define the vector of expected returns 
 mu <- c(0.08,0.10,0.13,0.15,0.20)
@@ -20,7 +20,7 @@ Sigma <- matrix(c(0.019600,-0.007560,0.012880,0.008750,-0.009800,
                 5, 5)
 
 # define the target risk
-sigmaP2 <- 0.25
+sigmaP2 <- 0.0225
 
 # Define G(w,\lambda)
 G<- function(x, mu, Sigma, sigmaP2)
@@ -58,17 +58,17 @@ while(sqrt(sum(u^2)) / sqrt(sum(x^2)) > 1e-6) {
   x <- x - u
 }
 
-# display the solution
+#display the solution
 x
 
-# 2(c)
-# need to confirm if we do indeed have maximum at the resultant x
+# 3(c)
+# need to confirm if we do indeed have minimum variance at the resultant x
 # first need the upper left nxn block of DG
 DG(x, mu, Sigma, sigmaP2)[1:5,1:5]
 
 # then we find the eigenvalues
 eigen(DG(x, mu, Sigma, sigmaP2)[1:5,1:5])
 
-# now to calculate the portfolio return mu^Tw
+# now to calculate portfolio risk
 t(x[1:5])%*%mu
 
