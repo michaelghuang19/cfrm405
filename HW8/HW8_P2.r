@@ -67,7 +67,7 @@ x[2]
 x[3]
 x[4]
 x[5]
-
+ 
 # 2(c)
 # need to confirm if we do indeed have maximum at the resultant x
 # first need the upper left nxn block of DG

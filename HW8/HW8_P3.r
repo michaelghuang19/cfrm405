@@ -23,7 +23,7 @@ Sigma <- matrix(c(0.019600,-0.007560,0.012880,0.008750,-0.009800,
 muP <- 0.15
 
 # Define G(w,\lambda)
-G<- function(x, mu, Sigma, muP)
+G <- function(x, mu, Sigma, muP)
 {
   n <- length(mu)
   c(2*(Sigma %*% x[1:n]) + rep(x[n+1], n) + x[n+2]*mu,
