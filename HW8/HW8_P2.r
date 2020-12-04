@@ -9,7 +9,7 @@
 # 2(b)
 
 # define the vector of expected returns 
-mu <- c(0.08,0.10,0.13,0.15,0.20)
+mu <- c(0.08, 0.10, 0.13, 0.15, 0.20)
 
 # define the covariance matrix
 Sigma <- matrix(c(0.019600,-0.007560,0.012880,0.008750,-0.009800,
@@ -48,7 +48,7 @@ DG <- function(x, mu, Sigma, sigmaP2)
 # Executing Newton's method 
 
 # starting points
-x <- c(rep(1, 5), 1, 1)
+x <- c(rep(0.5, 5), 1, 1)
 u <- rep(1, length(x))
 
 # Newton Iterations
@@ -61,6 +61,13 @@ while(sqrt(sum(u^2)) / sqrt(sum(x^2)) > 1e-6) {
 # display the solution
 x
 
+# asset proportions are therefore
+x[1]
+x[2]
+x[3]
+x[4]
+x[5]
+
 # 2(c)
 # need to confirm if we do indeed have maximum at the resultant x
 # first need the upper left nxn block of DG
@@ -70,5 +77,4 @@ DG(x, mu, Sigma, sigmaP2)[1:5,1:5]
 eigen(DG(x, mu, Sigma, sigmaP2)[1:5,1:5])
 
 # now to calculate the portfolio return mu^Tw
-t(x[1:5])%*%mu
-
+t(x[1:5]) %*% mu
