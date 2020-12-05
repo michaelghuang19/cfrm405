@@ -6,7 +6,7 @@
 # This is an optimization problem to minimize the variance of
 # a portfolio subject to constraint on risk
 
-# 3(b)
+# 3(a)
 
 # define the vector of expected returns 
 mu <- c(0.08, 0.10, 0.13, 0.15, 0.20)
@@ -45,6 +45,8 @@ DG <- function(x, mu, Sigma, muP)
   grad
 }
 
+# 3(b)
+
 # Executing Newton's method 
 
 # starting points
@@ -61,13 +63,19 @@ while(sqrt(sum(u^2)) / sqrt(sum(x^2)) > 1e-6) {
 #display the solution
 x
 
-# 3(c)
-# need to confirm if we do indeed have minimum variance at the resultant x
-# first need the upper left nxn block of DG
-DG(x, mu, Sigma, muP)[1:5,1:5]
+# asset proportions are therefore
+x[1]
+x[2]
+x[3]
+x[4]
+x[5]
 
-# then we find the eigenvalues
+# 3(c)
+# confirm if we do indeed have minimum at the resultant x
+# take the upper left nxn block of DG and find the eigenvalues
+DG(x, mu, Sigma, muP)[1:5,1:5]
 eigen(DG(x, mu, Sigma, muP)[1:5,1:5])
+# all positive, so we can verify it is the minimum.
 
 # now to calculate portfolio risk w^TSigmaw
 t(x[1:5]) %*% Sigma %*% x[1:5]

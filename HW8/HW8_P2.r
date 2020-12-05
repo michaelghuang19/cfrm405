@@ -6,7 +6,7 @@
 # This is an optimization problem to maximize the expected returns of
 # a portfolio subject to constraint on risk
 
-# 2(b)
+# 2(a)
 
 # define the vector of expected returns 
 mu <- c(0.08, 0.10, 0.13, 0.15, 0.20)
@@ -45,6 +45,8 @@ DG <- function(x, mu, Sigma, sigmaP2)
   grad
 }
 
+# 2(b)
+
 # Executing Newton's method 
 
 # starting points
@@ -69,12 +71,11 @@ x[4]
 x[5]
  
 # 2(c)
-# need to confirm if we do indeed have maximum at the resultant x
-# first need the upper left nxn block of DG
+# confirm if we do indeed have maximum at the resultant x
+# take the upper left nxn block of DG and find the eigenvalues
 DG(x, mu, Sigma, sigmaP2)[1:5,1:5]
-
-# then we find the eigenvalues
 eigen(DG(x, mu, Sigma, sigmaP2)[1:5,1:5])
+# all negative, so we can verify it is the maximum.
 
-# now to calculate the portfolio return mu^Tw
+# calculate the portfolio return mu^Tw
 t(x[1:5]) %*% mu
